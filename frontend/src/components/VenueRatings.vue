@@ -18,22 +18,22 @@ export default {
     };
   },
   async mounted() {
-    setTimeout(() => {
-      this.ratings = [{
-        id: '0',
-        date: new Date(),
-        categories: [{
-          type: 'beer',
-          rating: 1,
-        }, {
-          type: 'food',
-          rating: -1,
-        }, {
-          type: 'general',
-          rating: 0,
-        }]
-      }]
-    }, 1000);
+    // setTimeout(() => {
+    //   this.ratings = [{
+    //     id: '0',
+    //     date: new Date(),
+    //     categories: [{
+    //       type: 'beer',
+    //       rating: 1,
+    //     }, {
+    //       type: 'food',
+    //       rating: -1,
+    //     }, {
+    //       type: 'general',
+    //       rating: 0,
+    //     }]
+    //   }]
+    // }, 1000);
   }
 }
 </script>
