@@ -47,13 +47,13 @@ export default {
       }],
       choices: [{
         icon: 'thumbs-down',
-        value: -1,
-      }, {
-        icon: ['far', 'meh'],
         value: 0,
       }, {
-        icon: 'thumbs-up',
+        icon: ['far', 'meh'],
         value: 1,
+      }, {
+        icon: 'thumbs-up',
+        value: 2,
       }],
     };
   },
