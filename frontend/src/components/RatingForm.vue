@@ -24,10 +24,7 @@ const headers = { 'accept': 'application/json', 'content-type': 'application/jso
 export default {
   name: 'RatingForm',
   props: {
-    venueId: {
-      type: String,
-      required: true
-    },
+    venueId: String,
   },
   data() {
     return {
@@ -59,15 +56,15 @@ export default {
   },
   computed: {
     valid() {
-      return this.venueId && this.categories.every(({ rating }) => rating.score !== null);
+      return !!this.venueId;
     },
   },
   methods: {
     async sendRatings() {
       const { venueId } = this;
-      const ratings = this.categories.map(({ category, rating: { score }}) => {
-        return { category, score };
-      });
+      const ratings = this.categories
+          .filter(({ rating: { score }}) => score !== null)
+          .map(({ category, rating: { score }}) => ({ category, score }));
       const body = JSON.stringify({ venueId, ratings });
       const res = await fetch('/api/ratings', { method: 'POST', headers, body });
       if (!res.ok) {
