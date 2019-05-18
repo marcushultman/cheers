@@ -1,21 +1,18 @@
 <template>
   <div id="app">
     <VenueSelector :venueId.sync="venueId"/>
-    <VenueRatings/>
     <RatingForm :venueId="venueId"/>
   </div>
 </template>
 
 <script>
 import VenueSelector from './components/VenueSelector.vue'
-import VenueRatings from './components/VenueRatings.vue'
 import RatingForm from './components/RatingForm.vue'
 
 export default {
   name: 'app',
   components: {
     VenueSelector,
-    VenueRatings,
     RatingForm,
   },
   data() {
