@@ -29,6 +29,9 @@ const headers = { 'accept': 'application/json', 'content-type': 'application/jso
 
 export default {
   name: 'VenueSelector',
+  props: {
+    venueId: String,
+  },
   data() {
     return {
       error: null,
@@ -40,6 +43,11 @@ export default {
         longitude: 0,
         latitude: 0,
       },
+    }
+  },
+  watch: {
+    selectedId(id) {
+      this.$emit('update:venueId', String(id));
     }
   },
   computed: {

@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <VenueSelector/>
+    <VenueSelector :venueId.sync="venueId"/>
     <VenueRatings/>
-    <RatingForm/>
+    <RatingForm :venueId="venueId"/>
   </div>
 </template>
 
@@ -17,7 +17,12 @@ export default {
     VenueSelector,
     VenueRatings,
     RatingForm,
-  }
+  },
+  data() {
+    return {
+      venueId: '',
+    };
+  },
 }
 </script>
 
