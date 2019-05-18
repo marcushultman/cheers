@@ -1,7 +1,8 @@
 <template>
   <div>
     <template v-if="error">{{ error.message }}</template>
-    <form v-else @submit.prevent="sendRatings">
+    <h3 v-if="showOkMessage">Ratings registered!</h3>
+    <form @submit.prevent="sendRatings">
       <div v-for="{ category, text, rating } in categories" :key="category">
         <h4>{{ text }}</h4>
         <div class="icons">
@@ -29,6 +30,7 @@ export default {
   data() {
     return {
       error: null,
+      showOkMessage: false,
       categories: [{
         category: 'beer',
         text: 'How was the beer?',
@@ -70,6 +72,12 @@ export default {
       if (!res.ok) {
         return this.error = new Error(res.statusText);
       }
+      this.reset();
+      this.showOkMessage = true;
+      setTimeout(() => this.showOkMessage = false, 3000);
+    },
+    reset() {
+      this.categories.forEach(({ rating }) => rating.score = null);
     },
   },
 }
