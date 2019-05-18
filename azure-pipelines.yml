@@ -15,6 +15,24 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- task: Npm@1
+  inputs:
+    command: 'install'
+    workingDir: 'frontend'
+    configuration: '$(buildConfiguration)'
+
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    workingDir: 'frontend'
+    customCommand: 'run build'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'frontend/dist'
+    Contents: '**'
+    TargetFolder: 'backend/wwwroot'
+
 - task: NuGetToolInstaller@0
 
 - task: NuGetCommand@2
@@ -26,7 +44,6 @@ steps:
     solution: '$(solution)'
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
     platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
 
 - task: VSTest@2
   inputs:
