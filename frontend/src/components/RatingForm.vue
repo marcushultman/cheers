@@ -1,7 +1,9 @@
 <template>
   <div>
     <template v-if="error">{{ error.message }}</template>
-    <h3 v-if="showOkMessage">Ratings registered!</h3>
+    <transition name="slide-fade">
+      <h3 class="msg" v-if="showMsg">Ratings registered!</h3>
+    </transition>
     <form @submit.prevent="sendRatings">
       <div v-for="{ category, text, rating } in categories" :key="category">
         <h4>{{ text }}</h4>
@@ -30,7 +32,7 @@ export default {
   data() {
     return {
       error: null,
-      showOkMessage: false,
+      showMsg: false,
       categories: [{
         category: 'beer',
         text: 'How was the beer?',
@@ -73,8 +75,8 @@ export default {
         return this.error = new Error(res.statusText);
       }
       this.reset();
-      this.showOkMessage = true;
-      setTimeout(() => this.showOkMessage = false, 3000);
+      this.showMsg = true;
+      setTimeout(() => this.showMsg = false, 3000);
     },
     reset() {
       this.categories.forEach(({ rating }) => rating.score = null);
@@ -84,6 +86,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.msg {
+  transition: all .3s ease;
+}
+.slide-fade-enter, .slide-fade-leave-to {
+  transform: translateY(-10px);
+  opacity: 0;
+}
 .icons {
   display: flex;
 }
