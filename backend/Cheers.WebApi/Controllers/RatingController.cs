@@ -21,7 +21,7 @@ namespace Cheers.WebApi.Controllers
 
         [HttpGet]
         [Route("api/ratings")]
-        public async Task<ActionResult<IEnumerable<Rating>>> GetVenues()
+        public async Task<ActionResult<IEnumerable<Rating>>> GetRatings()
         {
             return Ok(await DbContext.Ratings.Include(x => x.Venue).ToListAsync());
         }
@@ -55,7 +55,7 @@ namespace Cheers.WebApi.Controllers
                 {
                     Category = modelRating.Category,
                     Score = modelRating.Score,
-                    Timestamp = DateTimeOffset.UtcNow,
+                    Created = DateTimeOffset.UtcNow,
                     Venue = venue
                 };
 

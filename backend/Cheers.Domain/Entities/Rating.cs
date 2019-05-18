@@ -10,7 +10,7 @@ namespace Cheers.Domain.Entities
 
         public int Score { get; set; }
 
-        public DateTimeOffset Timestamp { get; set; }
+        public DateTimeOffset Created { get; set; }
 
         public string Category { get; set; }
 
