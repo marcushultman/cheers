@@ -71,7 +71,7 @@ export default {
       return this.venues.find(venue => venue.id === this.selectedId);
     },
     hasLocation() {
-      return this.selectedVenue.longitude && this.selectedVenue.latitude;
+      return this.selectedVenue && this.selectedVenue.longitude && this.selectedVenue.latitude;
     },
     mapLink() {
       return `https://maps.google.com/?q=${this.selectedVenue.latitude},${this.selectedVenue.longitude}`;
