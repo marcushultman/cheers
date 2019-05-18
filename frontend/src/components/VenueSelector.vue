@@ -129,9 +129,6 @@ export default {
   border: none;
   outline: none;
 }
-.title::-ms-expand {
-  display: none;
-}
 form {
   display: flex;
   & input {
