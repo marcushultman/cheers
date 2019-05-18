@@ -103,7 +103,7 @@ export default {
   &.selected { color: #ffc92b; }
 }
 button {
-  margin: 16px 0;
+  margin: 24px 0;
   font-size: 22px;
   background: #ffc92b;
   color: white;
