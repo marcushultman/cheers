@@ -28,22 +28,44 @@ namespace Cheers.WebApi.Controllers
 
         [HttpPost]
         [Route("api/ratings")]
-        public async Task<ActionResult<Rating>> AddRating(AddRatingModel model)
+        public async Task<ActionResult<IEnumerable<Rating>>> AddRating(AddRatingModel model)
         {
             if (ModelState.IsValid == false)
-                BadRequest(ModelState);
+                return BadRequest(ModelState);
 
-            var rating = DbContext.Ratings.Add(new Rating
+            if(model.Ratings.Any() == false)
             {
-                Category = model.Category,
-                Score = model.Score,
-                Timestamp = DateTimeOffset.UtcNow,
-                Venue = await DbContext.Venues.FindAsync(model.VenueId)
-            });
+                ModelState.AddModelError("Ratings", "Must have at least one rating");
+                return BadRequest(ModelState);
+            }
 
+            var venue = await DbContext.Venues.FindAsync(model.VenueId);
+
+            if (venue == null)
+            {
+                ModelState.AddModelError("VenueId", "Could not find venue");
+                return BadRequest(ModelState);
+            }
+
+            var response = new List<Rating>();
+
+            foreach(var modelRating in model.Ratings)
+            {
+                var rating = new Rating
+                {
+                    Category = modelRating.Category,
+                    Score = modelRating.Score,
+                    Timestamp = DateTimeOffset.UtcNow,
+                    Venue = venue
+                };
+
+                DbContext.Ratings.Add(rating);
+                response.Add(rating);
+            }
+            
             await DbContext.SaveChangesAsync();
 
-            return Ok(rating);
+            return Ok(response);
         }
 
         //[HttpPost]

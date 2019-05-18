@@ -12,9 +12,9 @@ namespace Cheers.WebApi.Models
         public string Name { get; set; }
 
         [Required]
-        public string Longitude { get; set; }
+        public decimal Longitude { get; set; }
 
         [Required]
-        public string Latitude { get; set; }
+        public decimal Latitude { get; set; }
     }
 }

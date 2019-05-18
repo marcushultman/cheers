@@ -3,15 +3,17 @@ using System;
 using Cheers.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Cheers.Domain.Migrations
 {
     [DbContext(typeof(CheersDbContext))]
-    partial class CheersDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190518145451_ChangeTypes")]
+    partial class ChangeTypes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,10 +47,6 @@ namespace Cheers.Domain.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTimeOffset>("Created");
-
-                    b.Property<decimal>("Latitude");
-
-                    b.Property<decimal>("Longitude");
 
                     b.Property<string>("Name");
 

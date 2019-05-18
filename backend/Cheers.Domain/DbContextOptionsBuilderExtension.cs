@@ -1,8 +1,10 @@
 ﻿using Cheers.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace Cheers.Domain
@@ -25,5 +27,4 @@ namespace Cheers.Domain
             return builder;
         }
     }
-
 }

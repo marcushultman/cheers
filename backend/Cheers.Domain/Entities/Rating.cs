@@ -8,19 +8,12 @@ namespace Cheers.Domain.Entities
     {
         public long Id { get; set; }
 
-        public Score Score { get; set; }
+        public int Score { get; set; }
 
         public DateTimeOffset Timestamp { get; set; }
 
         public string Category { get; set; }
 
         public Venue Venue { get; set; }
-    }
-
-    public enum Score
-    {
-        Negative = -1,
-        Neutral = 0,
-        Positive = 1
     }
 }

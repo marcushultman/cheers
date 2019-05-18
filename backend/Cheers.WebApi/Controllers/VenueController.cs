@@ -26,12 +26,27 @@ namespace Cheers.WebApi.Controllers
             return Ok(await DbContext.Venues.ToListAsync());
         }
 
+        [HttpGet]
+        [Route("api/venues/current")]
+        public async Task<ActionResult<Venue>> GetCurrentVenue()
+        {
+            var backDate = DateTimeOffset.UtcNow.AddHours(-2);
+
+            var latestRating = await DbContext.Ratings
+                .Where(x => x.Timestamp > backDate)
+                .Include(x => x.Venue)
+                .OrderByDescending(x => x.Timestamp)
+                .FirstOrDefaultAsync();
+            
+            return Ok(latestRating?.Venue);
+        }
+
         [HttpPost]
         [Route("api/venues")]
         public async Task<ActionResult<Venue>> CreateVenue(CreateVenueModel model)
         {
             if (ModelState.IsValid == false)
-                BadRequest(ModelState);
+                return BadRequest(ModelState);
 
             var venue = new Venue
             {
