@@ -5,8 +5,8 @@
       <template v-if="loading">Loading...</template>
       <template v-else>
         <template v-if="venues.length">
-          <select v-model="selectedId" class="title">
-            <option value="">New venue:</option>
+          <select v-model="selectedId" class="title" :class="{ add: !selectedId }">
+            <option value="">Add venue</option>
             <option v-for="venue in venues"
                 :key="venue.id"
                 :value="venue.id">{{ venue.name }}</option>
@@ -20,7 +20,6 @@
         </form>
       </template>
     </template>
-    <hr>
   </div>
 </template>
 
@@ -89,14 +88,26 @@ export default {
 }
 form {
   display: flex;
-  margin: 0 8px;
   & input {
     flex: 1;
+    margin: 8px 0;
+    padding: 0;
+    font-size: 20px;
+    text-align: center;
+    border: none;
+    outline: none;
+  }
+  & button {
+    position: absolute;
+    right: 16px;
+    margin: 8px 0;
+    padding: 0;
+    line-height: 20px;
+    background: none;
+    border: none;
   }
 }
-input {
-  font-size: 18px;
-  outline: none;
-  text-align: center;
+.add {
+  font-size: 14px;
 }
 </style>
