@@ -111,7 +111,9 @@ export default {
         const location = await getLocation();
         this.newVenue.longitude = location.coords.longitude;
         this.newVenue.latitude = location.coords.latitude;
-      } catch (e) {}
+      } catch (e) {
+        // ok, then we'll ignore it
+      }
     }
   }
 }
