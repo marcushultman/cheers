@@ -154,8 +154,8 @@ form {
 }
 .map {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 24px;
+  right: 24px;
   color: inherit;
   font-size: 24px;
 }
