@@ -18,6 +18,9 @@
             <icon icon="plus"/>
           </button>
         </form>
+        <a v-if="hasLocation" class="map" :href="mapLink">
+          <icon icon="map-marked-alt"/>
+        </a>
       </template>
     </template>
   </div>
@@ -26,6 +29,16 @@
 <script>
 // json all the things 🍺
 const headers = { 'accept': 'application/json', 'content-type': 'application/json' };
+
+function getLocation() {
+  return new Promise((resolve, reject) => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(resolve);
+    } else {
+      reject(new Error('Geolocation is not supported by this browser.'));
+    }
+  })
+}
 
 export default {
   name: 'VenueSelector',
@@ -48,12 +61,21 @@ export default {
   watch: {
     selectedId(id) {
       this.$emit('update:venueId', String(id));
+      if (!id) {
+        this.updateLocation();
+      }
     }
   },
   computed: {
     selectedVenue() {
       return this.venues.find(venue => venue.id === this.selectedId);
     },
+    hasLocation() {
+      return this.selectedVenue.longitude && this.selectedVenue.latitude;
+    },
+    mapLink() {
+      return `https://maps.google.com/?q=${this.selectedVenue.latitude},${this.selectedVenue.longitude}`;
+    }
   },
   async mounted() {
     const res = await Promise.all([fetch('/api/venues'), fetch('/api/venues/current')]);
@@ -68,6 +90,8 @@ export default {
     const currentVenue = await resCurrent.json();
     if (currentVenue) {
       this.selectedId = currentVenue.id;
+    } else {
+      this.updateLocation();
     }
   },
   methods: {
@@ -81,6 +105,13 @@ export default {
       venue.created = new Date(venue.created);
       this.venues.push(venue);
       this.selectedId = venue.id;
+    },
+    async updateLocation() {
+      try {
+        const location = await getLocation();
+        this.newVenue.longitude = location.coords.longitude;
+        this.newVenue.latitude = location.coords.latitude;
+      } catch (e) {}
     }
   }
 }
@@ -122,5 +153,12 @@ form {
 }
 .add {
   font-size: 14px;
+}
+.map {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  color: inherit;
+  font-size: 24px;
 }
 </style>
