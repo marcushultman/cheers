@@ -56,14 +56,19 @@ export default {
     },
   },
   async mounted() {
-    const res = await fetch('/api/venues');
-    if (!res.ok) {
+    const res = await Promise.all([fetch('/api/venues'), fetch('/api/venues/current')]);
+    if (!res.every(res => res.ok)) {
       return this.error = new Error(res.statusText);
     }
+    const [resAll, resCurrent] = res;
     this.loading = false;
-    const venues = res.ok ? await res.json() : [];
+    const venues = await resAll.json();
     venues.forEach(venue => venue.created = new Date(venue.created));
     this.venues = venues;
+    const currentVenue = await resCurrent.json();
+    if (currentVenue) {
+      this.selectedId = currentVenue.id;
+    }
   },
   methods: {
     async addVenue() {
