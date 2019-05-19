@@ -52,7 +52,7 @@ steps:
   inputs:
     command: publish
     publishWebProjects: True
-    arguments: '--configuration Release -verbosity detailed --output $(Build.ArtifactStagingDirectory) backend'
+    arguments: '--configuration Release -verbosity detailed --output $(Build.ArtifactStagingDirectory) backend/Cheers.WebApi/Cheers.WebApi.csproj'
     zipAfterPublish: True
 
 - task: PublishBuildArtifacts@1
