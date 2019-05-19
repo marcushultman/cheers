@@ -31,7 +31,7 @@ steps:
   inputs:
     SourceFolder: 'frontend/dist'
     Contents: '**'
-    TargetFolder: 'backend/wwwroot'
+    TargetFolder: 'backend/Cheers.WebApi/wwwroot'
 
 - task: DotNetCoreCLI@2
   displayName: Build
