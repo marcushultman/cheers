@@ -18,6 +18,6 @@ namespace Cheers.WebApi.Models
 
         public decimal? Latitude { get; set; }
         
-        public IEnumerable<(string, decimal)> Ratings { get; set; }
+        public IEnumerable<(string category, decimal meanScore)> Ratings { get; set; }
     }
 }
