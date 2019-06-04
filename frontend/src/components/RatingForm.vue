@@ -12,7 +12,7 @@
               class="icon"
               :class="{ selected: rating.score === value }"
               :icon="icon"
-              @click="rating.score = value"/>
+              @click="rating.score = rating.score == value ? null : value"/>
         </div>
       </div>
       <button type="submit" :disabled="!valid">Send</button>
