@@ -21,9 +21,22 @@ namespace Cheers.WebApi.Controllers
 
         [HttpGet]
         [Route("api/venues")]
-        public async Task<ActionResult<IEnumerable<Venue>>> GetVenues()
+        public async Task<ActionResult<IEnumerable<GetVenueModel>>> GetVenues()
         {
-            return Ok(await DbContext.Venues.ToListAsync());
+            var response = await DbContext.Venues
+                .Select(v => new GetVenueModel
+                {
+                    Created = v.Created,
+                    Id = v.Id,
+                    Latitude = v.Latitude,
+                    Longitude = v.Longitude,
+                    Name = v.Name,
+                    Ratings = v.Ratings.GroupBy(c => c.Category)
+                                .Select(g => ValueTuple.Create<string, decimal>(g.Key, (decimal) g.Average(y => y.Score)))
+                })
+                .ToListAsync();
+
+            return Ok(response);
         }
 
         [HttpGet]

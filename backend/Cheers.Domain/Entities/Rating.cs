@@ -14,6 +14,10 @@ namespace Cheers.Domain.Entities
 
         public string Category { get; set; }
 
+        public decimal? Longitude { get; set; }
+
+        public decimal? Latitude { get; set; }
+
         public Venue Venue { get; set; }
     }
 }
