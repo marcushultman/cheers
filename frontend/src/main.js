@@ -5,6 +5,7 @@ import {
   faMeh,
 } from '@fortawesome/free-regular-svg-icons'
 import {
+  faList,
   faMapMarkedAlt,
   faPlus,
   faThumbsDown,
@@ -15,6 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 Vue.component('icon', FontAwesomeIcon)
 
 library.add(
+  faList,
   faMapMarkedAlt,
   faMeh,
   faPlus,
